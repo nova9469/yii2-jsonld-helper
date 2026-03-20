@@ -33,21 +33,21 @@ class JsonLDHelper extends BaseObject
             foreach ($view->params['breadcrumbs'] as $breadcrumb) {
                 if (is_array($breadcrumb)) {
                     $breadcrumbList[] = (object)[
-                        "@type" => "http://schema.org/ListItem",
-                        "http://schema.org/position" => $position,
-                        "http://schema.org/item" => (object)[
+                        "@type" => "https://schema.org/ListItem",
+                        "https://schema.org/position" => $position,
+                        "https://schema.org/item" => (object)[
                             "@id" => Url::to($breadcrumb['url'], true),
-                            "http://schema.org/name" => $breadcrumb['label'],
+                            "https://schema.org/name" => $breadcrumb['label'],
                         ]
                     ];
                 } else {
                     // Is it ok to omit URL here or not? Google is not clear on that:
                     // http://stackoverflow.com/questions/33688608/how-to-markup-the-last-non-linking-item-in-breadcrumbs-list-using-json-ld
                     $breadcrumbList[] = (object)[
-                        "@type" => "http://schema.org/ListItem",
-                        "http://schema.org/position" => $position,
-                        "http://schema.org/item" => (object)[
-                            "http://schema.org/name" => $breadcrumb,
+                        "@type" => "https://schema.org/ListItem",
+                        "https://schema.org/position" => $position,
+                        "https://schema.org/item" => (object)[
+                            "https://schema.org/name" => $breadcrumb,
                         ]
                     ];
                 }
@@ -56,8 +56,8 @@ class JsonLDHelper extends BaseObject
         }
 
         $doc = (object)[
-            "@type" => "http://schema.org/BreadcrumbList",
-            "http://schema.org/itemListElement" => $breadcrumbList
+            "@type" => "https://schema.org/BreadcrumbList",
+            "https://schema.org/itemListElement" => $breadcrumbList
         ];
 
         JsonLDHelper::add($doc);
@@ -75,10 +75,10 @@ class JsonLDHelper extends BaseObject
             // Using a simple context from the following comment would end up replacing `@type` keyword with `type` alias,
             // which is not recognized by Google's SDTT. So using a workaround instead
             // http://stackoverflow.com/questions/35879351/google-structured-data-testing-tool-fails-to-validate-type-as-an-alias-of-type
-            //$context = (object)["@context" => "http://schema.org"];
+            //$context = (object)["@context" => "https://schema.org"];
 
             $context = (object)[
-                "@context" => (object)["@vocab" => "http://schema.org/"]
+                "@context" => (object)["@vocab" => "https://schema.org/"]
             ];
         }
 
